@@ -1,0 +1,8 @@
+{
+  "version": "v1.1.0-Stable",
+  "versionCode": 110,
+  "zipUrl": "https://github.com/KepalaLuweng/LuwengSense/releases/download/v1.1.0/LuwengSense_v1.1.0-Stable.zip",
+  "changelog": "• GPS & Signal Boost\n• Touch & Ping Optimizer\n• Thermal & Performance Tweaks\n• Supports Mediatek & Qualcomm\n• Compatible with Magisk & KernelSU",
+  "notes": "Built with love by KepalaLuweng – www.youtube.com/@luwengtechid",
+  "support": "https://t.me/luwengtechofficial"
+}
