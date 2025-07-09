@@ -1,7 +1,6 @@
 # LuwengSense
 LuwengSense is a lightweight Magisk/KernelSU module that boosts GPS accuracy, signal quality, ping stability, touch responsiveness, and gaming performance.  No APKs. No junk. Just pure simple tweaks.
 
-# LuwengSense
 
 🎯 **All-in-One Magisk/KernelSU Tweak Module**  
 📱 Built for rooted Android devices — especially MediaTek.  
