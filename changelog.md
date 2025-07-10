@@ -22,4 +22,4 @@
 
 **Built with love by KepalaLuweng –**  
 📺 [YouTube Channel](https://www.youtube.com/@luwengtechid)  
-💬 [Support Group](https://t.me/luwengtechofficial)
+💬 [Telegram](https://t.me/luwengtechofficial)
