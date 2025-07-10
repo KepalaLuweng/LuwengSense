@@ -2,5 +2,5 @@
   "version": "1.2.0-Stable",
   "versionCode": 120,
   "zipUrl": "https://github.com/KepalaLuweng/LuwengSense/releases/download/v1.2.0/LuwengSense.v1.2.0.Stable.zip",
-  "changelog": "- Optimized GPS wakelock for improved battery life\n- Added CPU/GPU performance enhancements\n- Improved thermal engine handling\n- OTA-ready and compatible with Magisk & KernelSU"
+  "changelog": "https://raw.githubusercontent.com/KepalaLuweng/LuwengSense/main/changelog.md"
 }
