@@ -8,36 +8,38 @@
 ## 🔥 What's New in v1.3.0
 
 ### 📱 Performance & Touch
-- ✅ Improved **touch response** with new runtime props (up to 240Hz supported)
-- ✅ Disabled unnecessary `checkjni` and forced GPU-based rendering (SkiaGL)
+- ✅ Improved **touch response** with high refresh support (up to 240Hz)
+- ✅ Disabled `checkjni` for smoother execution
+- ✅ Forced GPU-based rendering using **SkiaGL**
 
 ### 📡 Network & Signal
-- ✅ Applied **TCP BBR** congestion control for more stable ping & faster data
-- ✅ Disabled **radio power-saving** for better signal hold
-- ✅ Enabled **VoLTE**, **VoWiFi**, and **video calling** props (auto-detected)
+- ✅ Applied **TCP BBR** congestion algorithm for stable ping
+- ✅ Disabled **radio power-saving** for stronger signal hold
+- ✅ Enabled **VoLTE**, **VoWiFi**, and video call props (if supported)
 
 ### 📍 GPS Optimization
-- ✅ Added **dual GPS support**:  
-  - `gps_debug.conf` → MediaTek  
-  - `gps.conf` → Qualcomm/Snapdragon  
-- ✅ Regional **NTP servers** for faster GPS lock (Asia & Indonesia prioritized)
+- ✅ Added dual GPS config files:  
+  - `gps_debug.conf` for **MediaTek**  
+  - `gps.conf` for **Qualcomm/Snapdragon**
+- ✅ Optimized **NTP servers** for Asia (including Indonesia)
+- ✅ Enabled **GPS wakelock** to reduce signal drop during standby
 
 ### 🧠 RAM & I/O Optimization
-- ✅ Activated **ZRAM** (2GB) with `lz4` compression for better multitasking
-- ✅ Lowered **VFS cache pressure** for faster file access
-- ✅ Enforced **noop I/O scheduler** for faster storage access
+- ✅ Enabled **ZRAM (2GB)** using `lz4` compression
+- ✅ Lowered **VFS cache pressure** to improve storage responsiveness
+- ✅ Applied **noop I/O scheduler** to reduce latency
 
 ### ❄️ Thermal & Background Services
-- ✅ Disabled **thermal throttling** (use with caution)
-- ✅ Turned off `profcollectd`, `statsd`, and persistent loggers to save CPU & I/O
+- ✅ (Optional) **Thermal throttling disabled** for sustained performance
+- ✅ Disabled logging daemons: `profcollectd`, `statsd`, and `logpersistd`
 
 ### ⚙️ Compatibility & Structure
-- ✅ Fully compatible with **Magisk v24+** & **KernelSU**
-- ✅ OTA support via `update.json` (Magisk/KernelSU Manager)
-- ✅ Clean, professional **customize.sh UI**
+- ✅ Fully compatible with **Magisk v24+** and **KernelSU**
+- ✅ Supports **OTA updates** via `update.json`
+- ✅ Updated `customize.sh` with professional installer output
 
 ---
 
-📎 **Total Size:** <10KB  
-🧠 100% Shell-Based. No APKs. No bloat.  
+📎 **Size:** <10KB  
+🧠 Pure shell script — no APKs, no bloat  
 💻 Built by: [KepalaLuweng](https://www.youtube.com/@luwengtechid)
