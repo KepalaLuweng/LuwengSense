@@ -1,6 +1,6 @@
 {
-  "version": "1.2.0-Stable",
-  "versionCode": 120,
-  "zipUrl": "https://github.com/KepalaLuweng/LuwengSense/releases/download/v1.2.0/LuwengSense.v1.2.0.Stable.zip",
-  "changelog": "https://raw.githubusercontent.com/KepalaLuweng/LuwengSense/main/changelog.md"
+  "version": "1.3.0-Stable",
+  "versionCode": 130,
+  "zipUrl": "https://github.com/KepalaLuweng/LuwengSense/releases/download/v1.3.0/LuwengSense.v1.3.0.Stable.zip",
+  "changelog": "https://raw.githubusercontent.com/KepalaLuweng/LuwengSense/main/changelog/changelogv1.3.0.md"
 }
