@@ -1,84 +1,58 @@
 # LuwengSense
 
-**LuwengSense** is a lightweight Magisk/KernelSU module that boosts GPS accuracy, signal quality, ping stability, touch responsiveness, and gaming performance.  
-No APKs. No junk. Just pure, shell-based logic.
+Performance & signal enhancement module for rooted Android devices (Magisk & KernelSU). Lightweight, fast, and junk-free.
 
-🎯 All-in-One Magisk/KernelSU Tweak Module  
-📱 Built for rooted Android devices — optimized for MediaTek & Snapdragon  
-🛠️ By KepalaLuweng (LuwengTech.ID)
+Built by **KepalaLuweng** – [YouTube: LuwengTech.ID](https://www.youtube.com/@luwengtechid)
 
 ---
 
-## 📌 Features
+## ⚡️ Key Optimizations
 
-🔧 GPS accuracy boost (dual config for MTK & Qualcomm)  
-📡 Signal & ping stability tweaks  
-⚡ Touch response enhancement  
-🎮 Gaming performance tuning  
-🚀 SkiaGL rendering & I/O scheduler optimization  
-🧠 ZRAM & VFS cache optimization  
-🧹 Logger disabling & background cleanup  
-❄️ Thermal throttling unlock (optional)  
-✅ Fully compatible with Magisk & KernelSU  
-🔒 No APKs, no bloat — pure shell-based tweaks
+- 📶 **Signal & Ping Stability**  
+  Improved mobile data response, reduced RIL latency, applied TCP congestion control (BBR/CUBIC), and optimized network buffers.
 
----
+- 🚀 **System & Gaming Performance**  
+  Tuned CPU governors, disabled thermal throttling (v1.4+), forced GPU rendering, and SkiaGL for smoother UI & gaming.
 
-## ⚙️ Installation
+- 🔧 **Memory Management**  
+  Adaptive ZRAM sizing, faster I/O scheduler (noop), optimized cache pressure for multitasking responsiveness.
 
-1. Flash via **Magisk Manager** or **KernelSU Manager**  
-2. Reboot your device  
-3. Done! Tweaks auto-applied on every boot
+- 📍 **GPS Accuracy Boost**  
+  Regional NTP servers, SUPL optimizations, and wakelock fix for faster and more accurate locks.
 
-✅ Supports **System-as-Root**, **Dynamic Partitions**, and **A/B slots**
+- 🖱️ **Touch & UI Responsiveness**  
+  Increased input sampling, lower animation delay, and forced hardware acceleration.
+
+- 🧹 **System Clean-up**  
+  Logging disabled, FSTRIM executed on boot, and bloat services stopped for cleaner background behavior.
 
 ---
 
-## 📂 Module Info
+## ✅ Compatibility
 
-- **Module Name**: LuwengSense  
-- **Version**: v1.3.0-Stable  
-- **Size**: <10KB — ultra-lightweight  
-- **Author**: KepalaLuweng ([@luwengtechid](https://www.youtube.com/@luwengtechid))
-
----
-
-## 📱 Requirements & Compatibility
-
-- **Root Method**: Magisk v24.0+ or any stable KernelSU  
-- **Android Version**: Android 9 (Pie) to Android 14+  
-- **Chipset Support**:  
-  ✅ MediaTek (full GPS & performance tweaks)  
-  ✅ Snapdragon / Exynos / Unisoc (universal tweaks applied, GPS fallback supported)  
-
-> Note: Devices below Android 9 may work, but some kernel-level features (like TCP BBR or ZRAM control) might be unavailable.
+- **Rooted Devices:** Magisk (v24+) or KernelSU
+- **Android:** 9 (Pie) to 14+
+- **Chipsets:** ARM / ARM64 (MediaTek, Qualcomm, Exynos)
 
 ---
 
-## 🧠 Why LuwengSense?
+## 📦 Installation
 
-> Most modules are bloated with unnecessary apps and scripts.  
-> **LuwengSense** is different — it focuses only on tweaks that bring **real performance gains** without touching UI, storage, or system integrity.
+1. Flash via Magisk app or KernelSU Manager.  
+2. Reboot. Tweaks auto-applied.
 
-Built for those who want **less talk, more tweak**.
-
----
-
-## 📄 Changelog
-
-- [Latest: v1.3.0](./changelog/changelogv1.3.0.md)  
-- [All changelogs](./changelog/)
+> For v1.4.0 and above: interactive profile selection is available during install.
 
 ---
 
-## 📣 Stay Connected
+## 💬 Support & Updates
 
-- **YouTube**: [LuwengTech.ID](https://www.youtube.com/@luwengtechid)  
-- **Telegram**: [@luwengtechofficial](https://t.me/luwengtechofficial)
+- **YouTube:** [@luwengtechid](https://www.youtube.com/@luwengtechid)  
+- **Telegram:** [@luwengtechofficial](https://t.me/luwengtechofficial)  
+- **Update Channel:** [View Changelog](https://github.com/KepalaLuweng/LuwengSense/releases)
 
 ---
 
-## ☕ Donate
+## ❤️ Love the tweak?
 
-If this module helped your performance, consider subscribing to the YouTube channel or sharing it with others.  
-Support keeps development alive ❤️
+Share, star ⭐ this repo, or subscribe to help support further development.
