@@ -64,6 +64,13 @@ Built for those who want **less talk, more tweak**.
 
 ---
 
+## 📄 Changelog
+
+- [Latest: v1.3.0](./changelog/changelogv1.3.0.md)  
+- [All changelogs](./changelog/)
+
+---
+
 ## 📣 Stay Connected
 
 - **YouTube**: [LuwengTech.ID](https://www.youtube.com/@luwengtechid)  
