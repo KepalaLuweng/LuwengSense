@@ -1,3 +1,11 @@
+#  IMPORTANT NOTICE
+Developed by **KepalaLuweng @ LuwengTechId**.  
+❌ Copying, cloning, rebuilding, or redistributing this module **without permission** is **STRICTLY PROHIBITED**.  
+✅ Sharing allowed **only with credit to the original source**.  
+📩 Contact: [t.me/luwengtechofficial](https://t.me/luwengtechofficial)
+
+---
+
 # Changelog — Legendary Edition
 
 ## 🚀 Major Features & Upgrades
