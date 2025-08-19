@@ -36,7 +36,12 @@ Segala bentuk **penyalinan, peniruan, modifikasi, atau pembuatan ulang modul tan
 
 📩 Kontak Developer: [t.me/luwengtechofficial](https://t.me/luwengtechofficial)
 
-# LuwengSense
+
+---
+
+---
+
+# 📱 LuwengSense
 
 Performance & signal enhancement module for rooted Android devices (Magisk & KernelSU). Lightweight, fast, and junk-free.
 
