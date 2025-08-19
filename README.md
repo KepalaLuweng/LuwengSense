@@ -1,3 +1,41 @@
+# 🔒 Module Usage Terms
+
+[![Made by LuwengTechId](https://img.shields.io/badge/Made%20by-LuwengTechId-blue?style=for-the-badge&logo=github)](https://github.com/LuwengTechId)
+[![License Protected](https://img.shields.io/badge/License-Protected-red?style=for-the-badge&logo=lock)](LICENSE)
+[![Telegram](https://img.shields.io/badge/Telegram-LuwengTechOfficial-2CA5E0?style=for-the-badge&logo=telegram)](https://t.me/luwengtechofficial)
+
+---
+
+## English
+This module was created and developed by **KepalaLuweng @ LuwengTechId**.  
+Any form of **copying, cloning, modification, or rebuilding without permission** is **STRICTLY PROHIBITED**.  
+
+✅ You may:
+- Use this module for personal purposes.  
+- Share this module by providing the **original source**.  
+
+❌ You may not:
+- Change the name / branding of the module for redistribution.  
+- Reupload or rebuild the module without the developer's permission.  
+
+📩 Developer Contact: [t.me/luwengtechofficial](https://t.me/luwengtechofficial)  
+
+---
+
+## Bahasa Indonesia
+Modul ini dibuat dan dikembangkan oleh **KepalaLuweng @ LuwengTechId**.  
+Segala bentuk **penyalinan, peniruan, modifikasi, atau pembuatan ulang modul tanpa izin developer** adalah **DILARANG**.  
+
+✅ Anda boleh:
+- Menggunakan modul ini secara pribadi.  
+- Membagikan modul ini dengan mencantumkan **sumber asli**.  
+
+❌ Anda tidak boleh:
+- Mengganti nama / branding modul untuk didistribusikan ulang.  
+- Mengupload ulang (reupload) atau membuat ulang (rebuild) modul tanpa izin developer.  
+
+📩 Kontak Developer: [t.me/luwengtechofficial](https://t.me/luwengtechofficial)
+
 # LuwengSense
 
 Performance & signal enhancement module for rooted Android devices (Magisk & KernelSU). Lightweight, fast, and junk-free.
