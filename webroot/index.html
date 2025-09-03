@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>LuwengSense Control Panel</title>
+    <script src="assets/kernelsu.js"></script>
+    <style>
+        @keyframes background_pan { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes text_glow { 0%, 100% { text-shadow: var(--text-glow-shadow-start); } 50% { text-shadow: var(--text-glow-shadow-end); } }
+        @keyframes fade_in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 5px var(--accent-main), 0 0 10px var(--accent-main) inset; } 50% { box-shadow: 0 0 8px var(--accent-main), 0 0 15px var(--accent-main) inset; } }
+        
+        :root { 
+            --bg-dark: #0a0a0a; 
+            --text-primary-dark-theme: #ffffff; 
+            --text-secondary-dark-theme: #a0b1d3;
+            --hover-text-dark-bg: #000000;
+        }
+
+        body { 
+            font-family: 'SF Mono', 'Menlo', 'Consolas', 'Courier New', monospace; 
+            background-color: var(--bg-color);
+            background-image: var(--theme-bg-image), var(--bg-gradient); 
+            background-size: auto, 400% 400%; 
+            animation: background_pan 15s ease infinite; 
+            color: var(--text-primary); 
+            padding: 15px; margin: 0; 
+            transition: background 0.5s ease, color 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: auto; 
+            animation: fade_in 0.8s ease-out; 
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 { color: var(--accent-main); text-align: center; font-weight: 600; animation: text_glow 4s ease-in-out infinite; letter-spacing: 2px; text-transform: uppercase; }
+        .card { 
+            background-color: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); 
+            transition: background-color 0.5s ease, border-color 0.5s ease;
+            flex-shrink: 0;
+        }
+        h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: 500; margin-top: 0; color: var(--text-primary); letter-spacing: 1px; text-align: center; }
+        p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; text-align: center; }
+        button { display: flex; align-items: center; justify-content: center; gap: 0.5em; padding: 15px 20px; width: 100%; margin-top: 10px; font-size: 16px; border-radius: 8px; background-color: transparent; cursor: pointer; transition: all 0.2s ease; font-family: inherit; letter-spacing: 1px; }
+        button:active { transform: scale(0.98); }
+        button[data-command="set_profile"] { border: 1px solid var(--accent-main); color: var(--accent-main); }
+        button[data-command="set_profile"]:hover { background-color: var(--accent-main); box-shadow: 0 0 15px var(--accent-alt); color: var(--hover-text-color); }
+        button.action { border: 1px solid var(--accent-alt); color: var(--accent-alt); }
+        button.action:hover { background-color: var(--accent-alt); box-shadow: 0 0 15px var(--accent-alt); color: var(--hover-text-color); }
+        .output-box { background-color: rgba(1, 4, 9, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-top: 20px; min-height: 50px; white-space: pre-wrap; word-wrap: break-word; font-size: 14px; color: #c9d1d9; }
+        .detail-grid { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 14px; }
+        .detail-label { color: var(--text-secondary); }
+        .detail-value { color: var(--accent-main); text-align: right; font-weight: bold; }
+        .footer { text-align: center; padding: 15px; font-size: 12px; color: var(--text-secondary); }
+        .footer p { margin-bottom: 15px; }
+        .footer .social-links { display: flex; justify-content: center; gap: 20px; }
+        .footer a { color: var(--accent-main); text-decoration: none; transition: text-shadow 0.3s; }
+        .footer a:hover { text-shadow: 0 0 5px var(--accent-main); }
+        .blinking-cursor { display: inline-block; width: 8px; height: 1em; background-color: var(--accent-main); animation: blink 1s steps(1) infinite; margin-left: 4px; vertical-align: middle; }
+        .emoji { display: inline-block; width: 1.2em; text-align: center; }
+        select, textarea { width: 100%; padding: 10px; background-color: var(--bg-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 15px; box-sizing: border-box; }
+        textarea { height: 120px; resize: vertical; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(5px); }
+.modal-content { 
+    background-color: var(--card-bg); 
+    padding: 25px; 
+    border-radius: 12px; 
+    border: 1px solid var(--border-color); 
+    width: 90%; 
+    max-width: 400px; 
+    position: relative; 
+    animation: fade_in 0.3s ease; 
+    max-height: 70vh;
+    overflow-y: auto;
+}
+        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 28px; color: var(--text-secondary); cursor: pointer; }
+        #modal-title { margin-top: 0; color: var(--accent-main); }
+        #modal-description { font-size: 14px; color: var(--text-primary); line-height: 1.6; white-space: pre-wrap;}
+        .info-icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 8px; background-color: transparent; border: 1.5px solid var(--text-secondary); border-radius: 50%; color: var(--text-secondary); font-size: 14px; font-weight: bold; font-family: 'Georgia', serif; cursor: pointer; transition: all 0.3s ease; animation: pulse-glow 2.5s infinite ease-in-out; }
+        .info-icon:hover { background-color: var(--accent-main); color: var(--hover-text-color); border-color: var(--accent-main); box-shadow: 0 0 10px var(--accent-main); animation-play-state: paused; }
+
+        body[data-theme="legendary"] { --accent-main: #ff1a1a; --accent-alt: #ffffff; --text-primary: var(--text-primary-dark-theme); --text-secondary: var(--text-secondary-dark-theme); --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(255, 26, 26, 0.4); --card-bg: rgba(25, 0, 0, 0.65); --bg-color: #000000; --bg-gradient: linear-gradient(135deg, #000000, #4d0000, #000000); --theme-bg-image: none; --text-glow-shadow-start: 0 0 8px rgba(255, 26, 26, 0.7); --text-glow-shadow-end: 0 0 12px rgba(255, 26, 26, 0.9); }
+        body[data-theme="cyan"] { --accent-main: #00ffff; --accent-alt: #ffffff; --text-primary: var(--text-primary-dark-theme); --text-secondary: var(--text-secondary-dark-theme); --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(0, 255, 255, 0.3); --card-bg: rgba(0, 20, 30, 0.6); --bg-color: #0a0a10; --bg-gradient: linear-gradient(125deg, #0a0a10, #001a1a, #0a0a10); --theme-bg-image: none; --text-glow-shadow-start: 0 0 8px rgba(0, 255, 255, 0.6); --text-glow-shadow-end: 0 0 12px rgba(0, 255, 255, 0.8); }
+        body[data-theme="pureblack"] { --accent-main: #ffffff; --accent-alt: #aaaaaa; --text-primary: var(--text-primary-dark-theme); --text-secondary: var(--text-secondary-dark-theme); --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(255, 255, 255, 0.2); --card-bg: rgba(25, 25, 25, 0.5); --bg-color: #000000; --bg-gradient: none; --theme-bg-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIGdyYWRpZW50VHJhbnNmb3JtPSJyb3RhdGUoNDUpIj48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzE4MTgxOCIvPjxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjMjIyMjIyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzEwMTAxMCIvPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZykiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+'); --text-glow-shadow-start: 0 0 8px rgba(255, 255, 255, 0.3); --text-glow-shadow-end: 0 0 12px rgba(255, 255, 255, 0.5); }
+        body[data-theme="pacman"] { --accent-main: #ffff00; --accent-alt: #ffffff; --text-primary: var(--text-primary-dark-theme); --text-secondary: #00ccff; --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(0, 102, 255, 0.6); --card-bg: rgba(10, 10, 25, 0.7); --bg-color: #000000; --bg-gradient: none; --theme-bg-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PHBhdGggZD0iTTggMEg2djZINGEyIDIgMCAwMC0yIDJ2MmgyVjhoMnYyMGo0VjhoMmE0IDQgMCAwMS00LTRIOGE0IDQgMCAwMS00IDRIMHY0aDZWOGgyVjZIMFYwaDJ2NGg0VjJ6TTI0IDBoMnY0aDR2Mmg0djJoLTZWNmg0VjRoLTR2LTJ6bS0yIDJoNHY0aC00di00em02IDZoMnY0aC0ydjR6TTggMjBoMnY0aC0ydjR6bTEwIDBoMnY0aC0ydjR6bS00IDRoMnY0aC0ydjR6bS02IDRoMnY0aC0ydjR6bTEyIDRoMnY0aC0ydjR6IiBmaWxsPSJyZ2JhKDAsIDEwMiwgMjU1LCAwLjE1KSIvPjwvc3ZnPg=='); --text-glow-shadow-start: 0 0 8px rgba(255, 255, 0, 0.8); --text-glow-shadow-end: 0 0 12px rgba(255, 255, 0, 1); }
+        body[data-theme="neonmatrix"] { --accent-main: #39ff14; --accent-alt: #ffffff; --text-primary: #39ff14; --text-secondary: #00c100; --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(57, 255, 20, 0.4); --card-bg: rgba(5, 25, 5, 0.5); --bg-color: #000000; --bg-gradient: none; --theme-bg-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjUwIiBzdHJva2U9InJnYmEoNTcsMjU1LDIwLDAuMDgpIiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI1MCIgc3Ryb2tlPSJyZ2JhKDU3LDI1NSwyMCwwLjA4KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMCIgeDI9IjIwIiB5Mj0iNTAiIHN0cm9rZT0icmdiYSg1TywyNTUsMjAsMC4wOCkiIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzMCIgeTE9IjAiIHgyPSIzMCIgeTI9IjUwIiBzdHJva2U9InJnYmEoNTcsMjU1LDIwLDAuMDgpIiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDAiIHkxPSIwIiB4Mj0iNDAiIHkyPSI1MCIgc3Ryb2tlPSJyZ2JhKDU3LDI1NSwyMCwwLjA4KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9zdmc+'); --text-glow-shadow-start: 0 0 10px rgba(57, 255, 20, 0.7); --text-glow-shadow-end: 0 0 15px rgba(57, 255, 20, 1); }
+        body[data-theme="sunsetblaze"] { --accent-main: #ff4800; --accent-alt: #ffff00; --text-primary: var(--text-primary-dark-theme); --text-secondary: #ffddaa; --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(255, 72, 0, 0.5); --card-bg: rgba(50, 20, 0, 0.6); --bg-color: #ff8c00; --bg-gradient: linear-gradient(135deg, #4d0000, #ff4500, #ffa500); --theme-bg-image: none; --text-glow-shadow-start: 0 0 8px rgba(255, 255, 0, 0.7); --text-glow-shadow-end: 0 0 12px rgba(255, 255, 0, 0.9); }
+        body[data-theme="galaxypurple"] { --accent-main: #c388ff; --accent-alt: #ffffff; --text-primary: var(--text-primary-dark-theme); --text-secondary: #a795b8; --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(195, 136, 255, 0.4); --card-bg: rgba(25, 10, 40, 0.7); --bg-color: #190e25; --bg-gradient: linear-gradient(125deg, #0f0517, #2c1a42, #190e25); --theme-bg-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiLz48Y2lyY2xlIGN4PSIxNzAiIGN5PSIxNzAiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC40KSIvPjxjaXJjbGUgY3g9IjE4OCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC42KSIvPjxjaXJjbGUgY3g9IjQwIiBjeT0iMTgwIiByPSIyLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44KSIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjMpIi8+PGNpcmNsZSBjeD0iMTUwIiBjeT0iNTAiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC40KSIvPjwvc3ZnPg=='); --text-glow-shadow-start: 0 0 8px rgba(195, 136, 255, 0.7); --text-glow-shadow-end: 0 0 12px rgba(195, 136, 255, 0.9); }
+        body[data-theme="emeraldforest"] { --accent-main: #00ff7f; --accent-alt: #ffffff; --text-primary: var(--text-primary-dark-theme); --text-secondary: #8fbc8f; --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(0, 255, 127, 0.4); --card-bg: rgba(0, 20, 10, 0.65); --bg-color: #001a00; --bg-gradient: linear-gradient(135deg, #001a00, #004d00, #001a00); --theme-bg-image: none; --text-glow-shadow-start: 0 0 8px rgba(0, 255, 127, 0.7); --text-glow-shadow-end: 0 0 12px rgba(0, 255, 127, 0.9); }
+        body[data-theme="solarflare"] { --accent-main: #ff8c00; --accent-alt: #ffff00; --text-primary: var(--text-primary-dark-theme); --text-secondary: #ffcc66; --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(255, 140, 0, 0.5); --card-bg: rgba(30, 10, 0, 0.7); --bg-color: #1a0000; --bg-gradient: linear-gradient(135deg, #1a0000, #8b0000, #ff4500); --theme-bg-image: none; --text-glow-shadow-start: 0 0 8px rgba(255, 140, 0, 0.8); --text-glow-shadow-end: 0 0 12px rgba(255, 140, 0, 1); }
+        body[data-theme="cybergold"] { --accent-main: #ffd700; --accent-alt: #ffffff; --text-primary: var(--text-primary-dark-theme); --text-secondary: #b8a038; --hover-text-color: var(--hover-text-dark-bg); --border-color: rgba(255, 215, 0, 0.3); --card-bg: rgba(20, 15, 0, 0.6); --bg-color: #0d0d0d; --bg-gradient: linear-gradient(135deg, #0d0d0d, #242424, #0d0d0d); --theme-bg-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cGF0aCBkPSJNMCA1MEgxMDBNNTAgMEw1MCAxMDAiIHN0cm9rZT0icmdiYSgyNTUsIDIxNSwgMCwgMC4wNSkiIHN0cm9rZS13aWR0aD0iMSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBzdHJva2U9InJnYmEoMjU1LCAyMTUsIDAsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiLz48L3N2Zz4='); --text-glow-shadow-start: 0 0 10px rgba(255, 215, 0, 0.6); --text-glow-shadow-end: 0 0 15px rgba(255, 215, 0, 0.8); }
+    </style>
+</head>
+<body data-theme="legendary">
+
+    <div class="container">
+        <h1 id="main-title">LuwengSense Zenith</h1>
+
+        <div class="card">
+            <h2 style="display: flex; align-items: center; justify-content: center; position: relative;">
+                Live System Status
+                <span id="refresh-status-btn" style="cursor: pointer; font-size: 20px; margin-left: 10px; position: absolute; right: 0;">🔄</span>
+            </h2>
+            <div class="detail-grid" id="status-container">
+                <div class="detail-label">Loading Status...</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Change Profile <span class="info-icon" data-title="About Profiles">i</span></h2>
+            <p>Use 'Force Apply' to apply tweaks instantly without reboot.</p>
+            <button data-command="set_profile" data-argument="auto">Auto (Normal ↔ Gaming) <span class="emoji">🤖</span></button>
+            <button data-command="set_profile" data-argument="normal">Normal <span class="emoji">⚙️</span></button>
+            <button data-command="set_profile" data-argument="battery">Battery <span class="emoji">🔋</span></button>
+            <button data-command="set_profile" data-argument="extreme_battery" style="border-color: #00e676; color: #00e676;">Extreme Battery Saver <span class="emoji">🌿</span></button>
+            <button data-command="set_profile" data-argument="gaming">Gaming <span class="emoji">🎮</span></button>
+            <button data-command="set_profile" data-argument="extreme">Extreme <span class="emoji">🔥</span></button>
+        </div>
+
+        <div class="card" id="app-watcher-card">
+            <h2>Per-App Profile (Auto-Gaming)</h2>
+            <p>Enter package names (one per line). The module will automatically switch to Gaming profile when these apps are opened.</p>
+            <textarea id="watched-apps-textarea" placeholder="com.mobile.legends&#10;com.tencent.ig&#10;..."></textarea>
+            <button class="action" id="save-watched-apps-btn">Save Watched Apps</button>
+        </div>
+
+        <div class="card">
+            <h2>System Actions</h2>
+            <div class="options-container" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                <div>
+                    <label for="dns-select" style="display: block; text-align: center; color: var(--text-secondary); margin-bottom: 10px;">Custom DNS Provider</label>
+                    <select id="dns-select">
+                        <option value="default">System Default</option>
+                        <option value="google">Google DNS</option>
+                        <option value="cloudflare">Cloudflare DNS</option>
+                        <option value="opendns">OpenDNS</option>
+                        <option value="adguard">AdGuard DNS (Ads Blocker)</option>
+                        <option value="quad9">Quad9 DNS</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="theme-select" style="display: block; text-align: center; color: var(--text-secondary); margin-bottom: 10px;">UI Theme</label>
+                    <select id="theme-select">
+                        <option value="legendary">Legendary (Red/Black)</option>
+                        <option value="cyan">Classic (Cyan/Blue)</option>
+                        <option value="pureblack">Pure Black (OLED)</option>
+                        <option value="pacman">Pacman (Retro)</option>
+                        <option value="neonmatrix">Neon Matrix (Cyberpunk)</option>
+                        <option value="sunsetblaze">Sunset Blaze (Warm)</option>
+                        <option value="galaxypurple">Galaxy Purple (Space)</option>
+                        <option value="emeraldforest">Emerald Forest (Nature)</option>
+                        <option value="solarflare">Solar Flare (Energetic)</option>
+                        <option value="cybergold">Cyber Gold (Premium)</option>
+                    </select>
+                </div>
+            </div>
+            <button class="action" data-command="force_apply_tweaks">Force Apply Tweaks</button>
+            <button class="action" data-command="clear_caches">Clear System Caches</button>
+            <button class="action" data-command="view_boot_log">View Boot Log</button>
+            <button class="action" data-command="view_watcher_log">View Auto-Profile Log</button>
+        </div>
+
+        <div class="output-box" id="output">Output will appear here...</div>
+
+        <div class="card footer">
+            <p>Module by KepalaLuweng<span class="blinking-cursor"></span></p>
+            <div class="social-links">
+                <a href="https-t.me/luwengtechofficial" target="_blank">Telegram</a>
+                <a href="https-github.com/KepalaLuweng/LuwengSense" target="_blank">GitHub</a>
+                <a href="https-www.youtube.com/@LuwengTechID" target="_blank">YouTube</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="info-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close">×</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+<script type="module">
+        import { exec, toast } from './assets/kernelsu.js';
+
+        const outputBox = document.getElementById('output');
+        const statusContainer = document.getElementById('status-container');
+        const moddir = "/data/adb/modules/LuwengSense";
+        const dnsSelect = docu
