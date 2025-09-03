@@ -1,0 +1,9 @@
+id=LuwengSense
+name=LuwengSense
+version=Zenith Edition
+versionCode=170
+author=KepalaLuweng
+description=⚙️ Zenith Edition: The peak of smart performance. Auto-switches profiles per-app, offers 6 profiles, 10 UI themes, and integrates deep LMK & Cgroup tweaks. Fully controlled via Web UI.
+need-action=true
+updateJson=https://raw.githubusercontent.com/KepalaLuweng/LuwengSense/main/update.json
+support=https://www.youtube.com/@luwengtechid
