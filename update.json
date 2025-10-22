@@ -1,6 +1,6 @@
 {
   "version": "Zenith Edition",
-  "versionCode": 170,
-  "zipUrl": "https://github.com/KepalaLuweng/LuwengSense/releases/download/Zenith/LuwengSense.Zenith.Edition.zip",
-  "changelog": "https://raw.githubusercontent.com/KepalaLuweng/LuwengSense/main/changelog/changelogzenith.md"
+  "versionCode": 180,
+  "zipUrl": "https://github.com/KepalaLuweng/LuwengSense/releases/download/ZenithUpdate/ZenithEditionV1.zip",
+  "changelog": "https://raw.githubusercontent.com/KepalaLuweng/LuwengSense/main/changelog/changelogzenithv1.md"
 }
