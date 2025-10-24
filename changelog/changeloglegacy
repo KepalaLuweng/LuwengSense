@@ -1,0 +1,190 @@
+# 🌀 LuwengSense - Legacy EOL (versionCode 190)
+**25 Oktober 2025**
+
+Ini adalah **rilis terakhir dan lengkap (End-of-Life / EOL)** dari LuwengSense.  
+Versi ini membawa banyak perbaikan besar, fitur baru yang cerdas, optimasi modern, dan pembaruan identitas untuk menandai akhir pengembangannya.
+
+Terima kasih kepada semua yang telah mendukung proyek ini sejak awal!
+
+---
+
+## ✨ Fitur Baru
+
+### 🧠 Smart Screen-Off Profile
+- Mendeteksi secara otomatis kapan layar hidup atau mati.
+- Mengaktifkan mode hemat daya agresif (termasuk tweak `vm.laptop_mode`) saat layar mati.
+- Mengembalikan profil sebelumnya (misalnya Gaming atau Normal) saat layar menyala kembali.
+
+### 🧩 Analisis Installer yang Ditingkatkan
+- Script instalasi (`customize.sh`) kini dapat menampilkan informasi perangkat:
+  - SoC (jenis prosesor)
+  - Total RAM (GB/MB)
+  - Versi kernel
+
+---
+
+## 🔧 Peningkatan & Perbaikan
+
+### ✅ Perbaikan Auto-Profile Switching
+- Logika deteksi di `watcher.sh` ditulis ulang menggunakan `dumpsys window` (menggantikan `cpuset`).
+- Memperbaiki masalah profil yang gagal berpindah atau macet.
+
+### 🕒 Logika Revert Delay yang Ditingkatkan
+- Menambahkan jeda singkat saat pengguna keluar dari game atau membuka Magisk/KSU.
+- Mencegah profil kembali ke Normal terlalu cepat secara tidak sengaja.
+
+### 🧹 Pembersihan Lengkap saat Uninstall
+- `uninstall.sh` kini menghapus seluruh file sementara terkait:
+  - Fitur Screen-Off
+  - Fitur Spoofing (`luwengsense_screen_off`, `luwengsense_previous_state`, `luwengsense_original_props`)
+
+---
+
+## 🎨 Antarmuka & Branding
+
+### 🌌 Rebranding ke Legacy EOL
+- Semua file terkait diperbarui (`module.prop`, `customize.sh`, `index.html`, `README.md`) untuk menampilkan identitas baru **Legacy EOL**.
+
+### 🎨 Tema Baru
+- **Legacy (Sapphire Blue)** — kini menjadi tema default.
+- **Zenith (Electric Purple)** — tema tambahan dengan gaya modern.
+
+### 🖥️ Pembaruan Tampilan Control Panel
+- Logika JavaScript pada `index.html` kini menampilkan status “Screen Off” atau “Auto [Screen Off]” dengan benar saat fitur aktif.
+
+---
+
+## ⚙️ Tweak & Optimasi (Final Pass)
+
+### 💾 Modernisasi LMK
+- Logika kondisional berdasarkan versi Android (SDK):
+  - Gunakan LMK berbasis PSI untuk Android 10 ke atas (SDK 29+)
+  - Gunakan tweak LMK lama untuk Android 8–9 (SDK 26–28)
+
+### 🧠 Tweak Kernel Universal
+- Menambahkan `vm.vfs_cache_pressure=50` untuk meningkatkan efisiensi cache file.
+- Menonaktifkan statistik I/O (`echo 0 > $queue/iostats`) untuk mengurangi beban CPU.
+
+### 🏗️ Peningkatan `build.prop` Modern
+- Menambahkan tweak aman dan universal:
+  - `debug.sf.disable_backpressure=1`
+  - `debug.sf.latch_unsignaled=1`
+  - `ro.kernel.checkjni=0`
+  - Skala animasi dipercepat ke `0.5`
+  - Menonaktifkan check-in dan pelaporan error Google
+
+### 🎮 Tweak Kernel per Profil
+- **Profil Screen-Off:**
+  - `vm.laptop_mode=5` dan pengaturan `vm.dirty_*` dioptimalkan untuk hemat daya maksimal.
+- **Profil Gaming/Extreme:**
+  - Frekuensi CPU naik-turun lebih cepat (`schedutil`)
+  - Menonaktifkan Input-Aware Scheduling (`ias_sched_enable=0`) untuk performa lebih halus.
+
+### 📡 Tweak GPS Akhir
+- Menambahkan properti tambahan untuk A-GPS di `system.prop` guna mempercepat penguncian lokasi, melengkapi `gps.conf`.
+
+---
+
+## 💬 Pesan Penutup
+
+Ini menandai **akhir dari perjalanan proyek LuwengSense**.  
+Perjalanan panjang penuh pembelajaran, eksperimen, dan semangat untuk performa Android terbaik.
+
+**Terima kasih telah menjadi bagian dari LuwengSense.**  
+– *KepalaLuweng*
+
+
+# 🌀 LuwengSense - Legacy EOL (versionCode 190)
+**October 25, 2025**
+
+This is the **final, feature-complete End-of-Life (EOL) build** for LuwengSense.  
+It includes major fixes, a new intelligent core feature, modern optimizations, and rebranding to mark the end of development.
+
+Thank you to everyone who supported this project throughout its journey!
+
+---
+
+## ✨ New Features
+
+### 🧠 Smart Screen-Off Profile
+- Automatically detects screen on/off events.
+- Forces an aggressive battery-saving mode (including `vm.laptop_mode` tweak) when the screen is off.
+- Intelligently reverts to the previous profile (e.g., Gaming, Normal) when the screen turns back on.
+
+### 🧩 Enhanced Installer Analysis
+- The installation script (`customize.sh`) now detects and displays:
+  - Device SoC (Processor)
+  - Total RAM (GB/MB)
+  - Kernel version
+
+---
+
+## 🔧 Improvements & Fixes
+
+### ✅ Auto-Profile Switching (Fixed)
+- Rewritten logic in `watcher.sh` using `dumpsys window` instead of `cpuset`.
+- Fixes the issue where profiles failed to switch or got stuck.
+
+### 🕒 Improved Auto-Profile Revert Delay
+- Adds delay logic when switching from games to the launcher or Magisk/KSU.
+- Prevents unwanted quick reversion to Normal profile.
+
+### 🧹 Complete Cleanup on Uninstall
+- Updated `uninstall.sh` to remove all temporary flags related to:
+  - Screen-Off feature
+  - Spoofing feature (`luwengsense_screen_off`, `luwengsense_previous_state`, `luwengsense_original_props`)
+
+---
+
+## 🎨 UI & Branding
+
+### 🌌 Rebranded to Legacy EOL
+- Updated all relevant files (`module.prop`, `customize.sh`, `index.html`, `README.md`) to reflect the Legacy EOL identity.
+
+### 🎨 New Themes
+- **Legacy (Sapphire Blue)** — now the default theme.
+- **Zenith (Electric Purple)** — new optional theme.
+
+### 🖥️ Control Panel UI Update
+- `index.html` JavaScript now correctly shows “Screen Off” or “Auto [Screen Off]” status when active.
+
+---
+
+## ⚙️ Tweaks & Optimizations (Final Pass)
+
+### 💾 Modernized LMK Tuning
+- Conditional logic based on Android SDK version:
+  - Uses PSI-based LMK tweaks for Android 10+ (SDK 29+)
+  - Retains classic LMK tweaks for Android 8/9 (SDK 26–28)
+
+### 🧠 Universal Kernel Tweaks
+- Added `vm.vfs_cache_pressure=50` to improve file caching performance.
+- Disabled I/O stats (`echo 0 > $queue/iostats`) to reduce CPU overhead.
+
+### 🏗️ Modern `build.prop` Enhancements
+- Added safe universal tweaks:
+  - `debug.sf.disable_backpressure=1`
+  - `debug.sf.latch_unsignaled=1`
+  - `ro.kernel.checkjni=0`
+  - Animation scales set to `0.5`
+  - Disabled Google check-in and crash reporting
+
+### 🎮 Profile-Specific Kernel Tweaks
+- **Screen-Off Profile:**
+  - `vm.laptop_mode=5` and optimized `vm.dirty_*` values for deep sleep efficiency.
+- **Gaming/Extreme Profiles:**
+  - Faster `schedutil` frequency ramping
+  - Disabled Input-Aware Scheduling (`ias_sched_enable=0`) for smoother performance
+
+### 📡 Final GPS Enhancements
+- Added extended A-GPS lock properties in `system.prop` to complement existing `gps.conf`.
+
+---
+
+## 💬 Final Message
+
+This marks the **end of the LuwengSense project**.  
+It has been an incredible journey of learning, optimization, and passion for Android performance.
+
+**Thank you for being part of LuwengSense.**  
+– *KepalaLuweng*
